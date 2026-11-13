@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Conversation Class - Middle Test (Adult Basic)</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0d9488;
+            --bg-dark: #0b1120;
+            --panel-bg: #1e293b;
+            --card-bg: #0f172a;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #f59e0b;
+            --gold: #fbbf24;
+            --danger: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            margin: 0;
+            padding: 0 20px 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* STICKY TOP HEADER & TABS */
+        .sticky-top-wrapper {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+            max-width: 1040px;
+            background: rgba(11, 17, 32, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            margin-bottom: 25px;
+            border-radius: 0 0 16px 16px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 14px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+        }
+
+        h1 {
+            margin: 0;
+            color: #60a5fa;
+            font-size: 1.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        p.subtitle {
+            margin: 4px 0 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background-color: var(--panel-bg);
+            color: var(--text-light);
+            border: 1px solid #334155;
+            padding: 10px 22px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .tab-btn:hover {
+            border-color: #60a5fa;
+            transform: translateY(-1px);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border-color: #93c5fd;
+            box-shadow: 0 0 18px rgba(37, 99, 235, 0.5);
+        }
+
+        /* STAGE CONTAINERS */
+        .stage-container {
+            display: none;
+            width: 100%;
+            max-width: 1000px;
+            background-color: var(--panel-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 1px solid #334155;
+            animation: fadeIn 0.35s ease;
+        }
+
+        .stage-container.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* STAGE 1: QUESTIONS & AUDIO */
+        .q-card {
+            background-color: #283548;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 5px solid var(--primary);
+        }
+
+        .q-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+            margin-bottom: 10px;
+            color: #f1f5f9;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 650px) {
+            .options { grid-template-columns: 1fr; }
+        }
+
+        .opt-box {
+            background: var(--card-bg);
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 0.98rem;
+            border: 1px solid #334155;
+        }
+
+        .audio-box {
+            background: linear-gradient(145deg, #0f172a, #162238);
+            border: 1px solid #3b82f6;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .audio-btn {
+            background: linear-gradient(135deg, #0d9488, #0f766e);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(13, 148, 136, 0.3);
+        }
+
+        .audio-btn:hover {
+            transform: scale(1.03);
+            filter: brightness(1.1);
+        }
+
+        .audio-btn.playing {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #000;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+        }
+
+        .audio-status {
+            font-size: 0.85rem;
+            color: #60a5fa;
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
+        .tag {
+            background: var(--primary);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            margin-right: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* BUTTONS */
+        .action-btn {
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .action-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(37, 99, 235, 0.5);
+        }
+
+        .action-btn:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+        }
+
+        /* STAGE 1: WRITING PAPER & PEN ANIMATION (10 MINS) */
+        .writing-visual-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 35px;
+            margin: 22px 0;
+            flex-wrap: wrap;
+            background: rgba(15, 23, 42, 0.65);
+            padding: 22px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+        }
+
+        .paper-sheet {
+            width: 140px;
+            height: 170px;
+            background: #f8fafc;
+            border-radius: 6px 18px 6px 6px;
+            padding: 20px 16px;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            border-left: 4px solid #ef4444;
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+        }
+
+        .paper-sheet::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 22px;
+            height: 22px;
+            background: linear-gradient(225deg, #1e293b 50%, #cbd5e1 50%);
+            border-radius: 0 0 0 6px;
+        }
+
+        .ink-line {
+            height: 4px;
+            background: #cbd5e1;
+            border-radius: 2px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ink-fill {
+            height: 100%;
+            width: 0%;
+            background: #1d4ed8;
+            border-radius: 2px;
+            transition: width 0.4s linear;
+        }
+
+        .writing-pen {
+            position: absolute;
+            font-size: 2.2rem;
+            top: 12px;
+            left: 16px;
+            transform-origin: bottom left;
+            transition: top 0.4s ease, left 0.4s ease;
+            pointer-events: none;
+            filter: drop-shadow(2px 4px 4px rgba(0,0,0,0.4));
+        }
+
+        .writing-active .writing-pen {
+            animation: scribbleMotion 0.45s infinite alternate ease-in-out;
+        }
+
+        @keyframes scribbleMotion {
+            0% { transform: rotate(-8deg) translateY(0px); }
+            50% { transform: rotate(4deg) translateY(-4px); }
+            100% { transform: rotate(-5deg) translateY(1px); }
+        }
+
+        /* STAGE 2: JACKPOT SLOT MACHINE & STUDENT TRACKER */
+        .student-manager {
+            background: var(--card-bg);
+            padding: 18px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            margin-bottom: 25px;
+        }
+
+        textarea.student-list {
+            width: 100%;
+            height: 65px;
+            background: #1e293b;
+            color: white;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 8px;
+            font-size: 0.95rem;
+            resize: vertical;
+        }
+
+        .student-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .pill {
+            background: #1e293b;
+            border: 1px solid #3b82f6;
+            color: #93c5fd;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .pill.done {
+            background: #1e293b;
+            border-color: #334155;
+            color: #475569;
+            text-decoration: line-through;
+        }
+
+        /* CASINO JACKPOT SLOT MACHINE */
+        .jackpot-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 780px) {
+            .jackpot-grid { grid-template-columns: 1fr; }
+        }
+
+        .slot-machine {
+            background: linear-gradient(180deg, #7f1d1d 0%, #450a0a 100%);
+            border: 4px solid var(--gold);
+            border-radius: 18px;
+            padding: 18px;
+            position: relative;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(251, 191, 36, 0.25);
+            text-align: center;
+        }
+
+        .slot-marquee {
+            background: #111827;
+            border: 2px solid var(--gold);
+            border-radius: 10px;
+            padding: 8px 12px;
+            margin-bottom: 14px;
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+        }
+
+        .slot-marquee h3 {
+            margin: 0;
+            color: var(--gold);
+            font-size: 1.15rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-shadow: 0 0 8px rgba(251, 191, 36, 0.8);
+        }
+
+        .slot-lights {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 5px;
+        }
+
+        .bulb {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #fef08a;
+            box-shadow: 0 0 8px #facc15;
+            animation: blink 0.8s infinite alternate;
+        }
+
+        .bulb:nth-child(even) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes blink {
+            from { opacity: 0.3; transform: scale(0.85); }
+            to { opacity: 1; transform: scale(1.15); }
+        }
+
+        .slot-window {
+            background: linear-gradient(180deg, #cbd5e1 0%, #ffffff 20%, #ffffff 80%, #94a3b8 100%);
+            border: 4px solid #b45309;
+            border-radius: 10px;
+            height: 115px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 14px;
+            box-shadow: inset 0 10px 18px rgba(0,0,0,0.45), inset 0 -10px 18px rgba(0,0,0,0.45);
+        }
+
+        .slot-reel-text {
+            color: #0f172a;
+            font-weight: 800;
+            font-size: 1.45rem;
+            line-height: 1.3;
+            transition: transform 0.08s ease;
+        }
+
+        .slot-reel-text.topic-size {
+            font-size: 1.05rem;
+        }
+
+        .slot-spinning .slot-reel-text {
+            animation: reelBlur 0.12s infinite linear;
+            color: #b91c1c;
+        }
+
+        @keyframes reelBlur {
+            0% { transform: translateY(-18px); opacity: 0.6; }
+            50% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(18px); opacity: 0.6; }
+        }
+
+        .slot-winner .slot-window {
+            box-shadow: 0 0 25px #fbbf24, inset 0 0 12px rgba(245, 158, 11, 0.5);
+            border-color: #fef08a;
+        }
+
+        .slot-btn {
+            margin-top: 15px;
+            background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%);
+            color: #111827;
+            border: 2px solid #fef3c7;
+            padding: 11px 24px;
+            font-size: 1rem;
+            font-weight: 900;
+            border-radius: 999px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 0 #92400e, 0 8px 15px rgba(0,0,0,0.5);
+            transition: all 0.1s;
+        }
+
+        .slot-btn:active:not(:disabled) {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #92400e;
+        }
+
+        .slot-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* ELEGANT HOURGLASS TIMER (STAGE 2) */
+        .hourglass-panel {
+            background: radial-gradient(circle at top, #1e293b, #0f172a);
+            border: 1px solid rgba(251, 191, 36, 0.35);
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .hourglass-visual {
+            position: relative;
+            width: 90px;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hg-cap {
+            width: 84px;
+            height: 10px;
+            background: linear-gradient(90deg, #b45309, #fbbf24, #b45309);
+            border-radius: 5px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.6);
+            z-index: 2;
+        }
+
+        .hg-glass {
+            width: 72px;
+            height: 116px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .hg-top-bulb, .hg-bottom-bulb {
+            width: 68px;
+            height: 56px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 2px solid rgba(251, 191, 36, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hg-top-bulb {
+            border-radius: 6px 6px 34px 34px;
+            border-bottom: none;
+        }
+
+        .hg-bottom-bulb {
+            border-radius: 34px 34px 6px 6px;
+            border-top: none;
+        }
+
+        .sand-top {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #fcd34d, #f59e0b);
+            transition: height 0.5s linear;
+        }
+
+        .sand-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            background: linear-gradient(180deg, #f59e0b, #d97706);
+            transition: height 0.5s linear;
+        }
+
+        .sand-stream {
+            position: absolute;
+            top: 54px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 3px;
+            height: 60px;
+            background: #fbbf24;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .hourglass-running .sand-stream {
+            opacity: 1;
+            animation: streamFlow 0.4s infinite linear;
+        }
+
+        @keyframes streamFlow {
+            0% { opacity: 0.9; }
+            50% { opacity: 0.4; }
+            100% { opacity: 0.9; }
+        }
+
+        .timer-info {
+            text-align: center;
+        }
+
+        .timer-display {
+            font-size: 3.4rem;
+            font-weight: 800;
+            color: var(--gold);
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 2px;
+            margin: 6px 0;
+            text-shadow: 0 0 18px rgba(251, 191, 36, 0.35);
+        }
+
+        /* STAGE 3: PAIR ROLEPLAY GRID & ANALOG CLOCK TIMER */
+        .pairs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .pair-card {
+            background: linear-gradient(145deg, #0f172a, #1e293b);
+            border: 2px solid #334155;
+            border-radius: 12px;
+            padding: 18px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .pair-card.shuffling {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .pair-card.locked {
+            border-color: #10b981;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.15);
+        }
+
+        .lock-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid #10b981;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .pair-names {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #60a5fa;
+            margin: 8px 0;
+        }
+
+        .pair-scenario {
+            font-size: 0.92rem;
+            color: #cbd5e1;
+            background: rgba(15, 23, 42, 0.7);
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+            line-height: 1.45;
+        }
+
+        .prep-timer-box {
+            margin-top: 30px;
+            background: radial-gradient(circle at center, #1e293b, #0f172a);
+            border: 1px solid #3b82f6;
+            border-radius: 16px;
+            padding: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        /* ANALOG CLOCK STYLING */
+        .analog-clock {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #1e293b 60%, #0f172a 100%);
+            border: 6px solid var(--gold);
+            box-shadow: 0 0 25px rgba(251, 191, 36, 0.25), inset 0 0 15px rgba(0, 0, 0, 0.8);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .clock-face-markers {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+
+        .clock-mark {
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            width: 3px;
+            height: 10px;
+            background: #94a3b8;
+            transform-origin: 50% 73px;
+        }
+
+        .clock-mark.major {
+            width: 4px;
+            height: 14px;
+            background: var(--gold);
+        }
+
+        .clock-5min-sector {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: conic-gradient(rgba(245, 158, 11, 0.28) 0deg 30deg, transparent 30deg 360deg);
+        }
+
+        .clock-hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            border-radius: 4px;
+        }
+
+        .minute-hand {
+            width: 5px;
+            height: 52px;
+            background: #60a5fa;
+            margin-left: -2.5px;
+            z-index: 3;
+            box-shadow: 0 0 6px rgba(96, 165, 250, 0.6);
+        }
+
+        .second-hand {
+            width: 2.5px;
+            height: 66px;
+            background: #ef4444;
+            margin-left: -1.25px;
+            z-index: 4;
+        }
+
+        .clock-center-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--gold);
+            border: 2px solid #0f172a;
+            border-radius: 50%;
+            z-index: 5;
+        }
+
+        .clock-label {
+            position: absolute;
+            bottom: 28px;
+            font-size: 0.72rem;
+            font-weight: bold;
+            color: #94a3b8;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- STICKY TOP HEADER & NAVIGATION -->
+    <div class="sticky-top-wrapper">
+        <header>
+            <h1>English Conversation Class - Middle Test</h1>
+            <p class="subtitle">Adult Class • Basic Level • Comprehensive Review (Units 1 - 11)</p>
+        </header>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="switchStage(1, this)">Stage 1: Listening & Written</button>
+            <button class="tab-btn" onclick="switchStage(2, this)">Stage 2: Individual Speaking</button>
+            <button class="tab-btn" onclick="switchStage(3, this)">Stage 3: Pair Roleplay</button>
+        </div>
+    </div>
+
+    <!-- ================= STAGE 1: LISTENING & WRITTEN ================= -->
+    <div id="stage1" class="stage-container active">
+        <h2>Stage 1: Listening & Written Test</h2>
+        <p style="color: var(--text-muted);">Listen carefully to the audio tracks and write your answers on your answer sheet.</p>
+        <hr style="border-color: #334155; margin-bottom: 20px;">
+
+        <!-- LISTENING SECTION 1 -->
+        <h3>🎧 Section 1: Listening - Multiple Choice (1–5)</h3>
+        <div class="audio-box">
+            <div>
+                <strong>Audio 1: A Chat Between Two Colleagues</strong><br>
+                <small style="color: var(--text-muted);">Covers Units 1, 3, 7, 9, 11</small>
+                <div id="statusAudio1" class="audio-status">Ready to play</div>
+            </div>
+            <div class="audio-controls">
+                <button id="btnAudio1" class="audio-btn" onclick="toggleAudio(1)">▶ Play Audio 1</button>
+            </div>
+            <!-- Supports GitHub relative file 'audio1.mp3' + Google Drive fallback -->
+            <audio id="playerAudio1" preload="auto" onended="resetAudioBtn(1)">
+                <source src="audio1.mp3" type="audio/mpeg">
+                <source src="https://drive.google.com/uc?export=download&id=1UXiBxZDktsurq0WX83DycWCMCCFg7bRp" type="audio/mpeg">
+            </audio>
+        </div>
+
+        <div class="q-card">
+            <div class="q-title">1. What does Maya look like?</div>
+            <div class="options">
+                <div class="opt-box">A. Long hair and round glasses</div>
+                <div class="opt-box">B. Short curly hair and dark glasses</div>
+                <div class="opt-box">C. Straight hair and no glasses</div>
+                <div class="opt-box">D. Short straight hair and red glasses</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-title">2. Where did Sarah go last weekend?</div>
+            <div class="options">
+                <div class="opt-box">A. Jakarta</div>
+                <div class="opt-box">B. Bali</div>
+                <div class="opt-box">C. Bandung</div>
+                <div class="opt-box">D. Jogja</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-title">3. What did Sarah like about the place she visited?</div>
+            <div class="options">
+                <div class="opt-box">A. The big shopping malls</div>
+                <div class="opt-box">B. The beach and warm sun</div>
+                <div class="opt-box">C. The beautiful city and delicious traditional food</div>
+                <div class="opt-box">D. The quiet parks and museums</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-title">4. Why couldn't Angela go to the gym last weekend?</div>
+            <div class="options">
+                <div class="opt-box">A. She was sick</div>
+                <div class="opt-box">B. She worked late</div>
+                <div class="opt-box">C. The gym was closed</div>
+                <div class="opt-box">D. She lost his gym card</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-title">5. What advice did Sarah give to Angela?</div>
+            <div class="options">
+                <div class="opt-box">A. To take a long vacation</div>
+                <div class="opt-box">B. To eat less spicy food</div>
+                <div class="opt-box">C. To start exercising twice a week</div>
+                <div class="opt-box">D. To change her working hours</div>
+            </div>
+        </div>
+
+        <!-- LISTENING SECTION 2 -->
+        <h3 style="margin-top: 30px;">🎧 Section 2: Listening - Fill in the Blanks (6–10)</h3>
+        <div class="audio-box">
+            <div>
+                <strong>Audio 2: Monologue - Daily Life Tips & Directions</strong><br>
+                <small style="color: var(--text-muted);">Covers Units 2, 8, 11</small>
+                <div id="statusAudio2" class="audio-status">Ready to play</div>
+            </div>
+            <div class="audio-controls">
+                <button id="btnAudio2" class="audio-btn" onclick="toggleAudio(2)">▶ Play Audio 2</button>
+            </div>
+            <!-- Supports GitHub relative file 'audio2.mp3' + Google Drive fallback -->
+            <audio id="playerAudio2" preload="auto" onended="resetAudioBtn(2)">
+                <source src="audio2.mp3" type="audio/mpeg">
+                <source src="https://drive.google.com/uc?export=download&id=1le2rMNs0h_krexY2cE5BvXB2cIDrsyP3" type="audio/mpeg">
+            </audio>
+        </div>
+
+        <div class="q-card"><div class="q-title">6. Many people feel stressed because they sit for ________ hours a day.</div></div>
+        <div class="q-card"><div class="q-title">7. The new wellness center is located next to the ________.</div></div>
+        <div class="q-card"><div class="q-title">8. The center is located on ________ Street.</div></div>
+        <div class="q-card"><div class="q-title">9. Before starting your day, it's a good idea to drink a glass of fresh ________.</div></div>
+        <div class="q-card"><div class="q-title">10. Remember to take a short ________ during your break.</div></div>
+
+        <!-- GRAMMAR & VOCABULARY -->
+        <h3 style="margin-top: 30px;">📝 Section 3: Grammar & Vocabulary Check (11–20)</h3>
+        
+        <div class="q-card">
+            <div class="q-title"><span class="tag">Unit 1 & 3</span> 11. My manager is very friendly. She __________ glasses and has shoulder-length hair.</div>
+            <div class="options">
+                <div class="opt-box">A. wear</div>
+                <div class="opt-box">B. wears</div>
+                <div class="opt-box">C. wearing</div>
+                <div class="opt-box">D. wore</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-title"><span class="tag">Unit 2</span> 12. How __________ do you play badminton with your friends?</div>
+            <div class="options">
+                <div class="opt-box">A. many</div>
+                <div class="opt-box">B. long</div>
+                <div class="opt-box">C. often</div>
+                <div class="opt-box">D. much</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-title"><span class="tag">Unit 4</span> 13. A: "I think working overtime every day is good for career growth." <br> B: "That’s a good point, __________ I think it makes us too tired."</div>
+            <div class="options">
+                <div class="opt-box">A. so</div>
+                <div class="opt-box">B. and</div>
+                <div class="opt-box">C. but</div>
+                <div class="opt-box">D. because</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-title"><span class="tag">Unit 5 & 10</span> 14. In the __________ part of a presentation, you should summarize your main points and say thank you.</div>
+            <div class="options">
+                <div class="opt-box">A. Punch</div>
+                <div class="opt-box">B. Body</div>
+                <div class="opt-box">C. Closing</div>
+                <div class="opt-box">D. Opening</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-title"><span class="tag">Unit 6</span> 15. Rendang is a famous dish from Indonesia. It tastes very __________ and savory.</div>
+            <div class="options">
+                <div class="opt-box">A. spicy</div>
+                <div class="opt-box">B. sour</div>
+                <div class="opt-box">C. bitter</div>
+                <div class="opt-box">D. sweet</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-title"><span class="tag">Unit 7</span> 16. Tokyo is a __________ city with millions of people and lots of high-rise buildings.</div>
+            <div class="options">
+                <div class="opt-box">A. quiet</div>
+                <div class="opt-box">B. crowded</div>
+                <div class="opt-box">C. small</div>
+                <div class="opt-box">D. boring</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-title"><span class="tag">Unit 8</span> 17. Excuse me, where is the bakery? Go straight for two blocks, then turn left. It's __________ the post office.</div>
+            <div class="options">
+                <div class="opt-box">A. next to</div>
+                <div class="opt-box">B. under</div>
+                <div class="opt-box">C. between to</div>
+                <div class="opt-box">D. inside</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-title"><span class="tag">Unit 9</span> 18. A: "Have you ever __________ to Bali for vacation?" <br> B: "Yes, I went there last year."</div>
+            <div class="options">
+                <div class="opt-box">A. go</div>
+                <div class="opt-box">B. went</div>
+                <div class="opt-box">C. been</div>
+                <div class="opt-box">D. going</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-title"><span class="tag">Unit 11</span> 19. It's a good idea __________ more vegetables if you want to stay healthy.</div>
+            <div class="options">
+                <div class="opt-box">A. eating</div>
+                <div class="opt-box">B. to eat</div>
+                <div class="opt-box">C. ate</div>
+                <div class="opt-box">D. eats</div>
+            </div>
+        </div>
+
+        <div class="q-card">
+            <div class="q-title"><span class="tag">Unit 11</span> 20. After working for 12 hours non-stop, I felt completely __________ and exhausted.</div>
+            <div class="options">
+                <div class="opt-box">A. fit</div>
+                <div class="opt-box">B. relaxed</div>
+                <div class="opt-box">C. stressed</div>
+                <div class="opt-box">D. active</div>
+            </div>
+        </div>
+
+        <!-- WRITING TASK TIMER WITH PAPER & PEN ANIMATION -->
+        <h3 style="margin-top: 30px;">✍️ Section 4: Writing Task (10 Minutes)</h3>
+        <div class="q-card" style="border-left-color: var(--accent);">
+            <div class="q-title">Instructions:</div>
+            <p style="margin: 5px 0;">Choose <strong>ONE</strong> topic below and write 3 to 5 simple sentences on your answer sheet:</p>
+            <ul>
+                <li><strong>Option A:</strong> Describe your ideal vacation destination and why you want to go there.</li>
+                <li><strong>Option B:</strong> Describe 2 healthy habits you want to do every day and why they are important.</li>
+            </ul>
+            
+            <div class="writing-visual-wrapper" id="writingVisualBox">
+                <!-- Animated Paper & Pen -->
+                <div class="paper-sheet" id="paperSheet">
+                    <div class="ink-line"><div class="ink-fill" id="inkLine1"></div></div>
+                    <div class="ink-line"><div class="ink-fill" id="inkLine2"></div></div>
+                    <div class="ink-line"><div class="ink-fill" id="inkLine3"></div></div>
+                    <div class="ink-line"><div class="ink-fill" id="inkLine4"></div></div>
+                    <div class="ink-line"><div class="ink-fill" id="inkLine5"></div></div>
+                    <div class="ink-line"><div class="ink-fill" id="inkLine6"></div></div>
+                    <div class="writing-pen" id="writingPen">✍️</div>
+                </div>
+
+                <div style="text-align: center;">
+                    <div style="font-size: 0.9rem; color: var(--text-muted); font-weight: 600;">WRITING TIME REMAINING</div>
+                    <div class="timer-display" id="timerDisplay">10:00</div>
+                    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                        <button class="action-btn" onclick="startWritingTimer()">▶ Start 10-Min Timer</button>
+                        <button class="action-btn" style="background: #475569;" onclick="pauseWritingTimer()">⏸ Pause</button>
+                        <button class="action-btn" style="background: #334155;" onclick="resetWritingTimer()">↺ Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= STAGE 2: INDIVIDUAL SPEAKING ================= -->
+    <div id="stage2" class="stage-container">
+        <h2>Stage 2: Individual Speaking Performance</h2>
+        <p style="color: var(--text-muted);">Spin the Jackpot Machine to pick the next speaker and topic. Completed students are automatically removed from the pool.</p>
+        <hr style="border-color: #334155; margin-bottom: 20px;">
+
+        <!-- STUDENT LIST & REMAINING TRACKER -->
+        <div class="student-manager">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+                <label><strong>Attendance List (Separate names with commas):</strong></label>
+                <button class="action-btn" style="padding: 6px 14px; font-size: 0.85rem; background: #475569;" onclick="resetPool()">↺ Reset All Turns & Topics</button>
+            </div>
+            <textarea id="studentNames" class="student-list" oninput="syncStudents()">Budi, Ani, Citra, Dewi, Eko, Farhan, Gita, Hendra, Indah, Joko</textarea>
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 8px;">
+                Remaining Speakers: <strong id="remainingCount" style="color: var(--gold);">10</strong>
+            </div>
+            <div class="student-pills" id="studentPills"></div>
+        </div>
+
+        <!-- JACKPOT SLOT MACHINES -->
+        <div class="jackpot-grid">
+            <!-- STUDENT SLOT -->
+            <div class="slot-machine" id="studentSlotBox">
+                <div class="slot-marquee">
+                    <h3>🎰 NEXT SPEAKER</h3>
+                    <div class="slot-lights">
+                        <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+                        <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+                    </div>
+                </div>
+                <div class="slot-window">
+                    <div class="slot-reel-text" id="selectedStudent">READY TO SPIN</div>
+                </div>
+                <button class="slot-btn" id="btnSpinStudent" onclick="spinStudentJackpot()">🎲 SPIN SPEAKER</button>
+            </div>
+
+            <!-- TOPIC SLOT -->
+            <div class="slot-machine" id="topicSlotBox">
+                <div class="slot-marquee">
+                    <h3>💎 SPEAKING TOPIC</h3>
+                    <div class="slot-lights">
+                        <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+                        <span class="bulb"></span><span class="bulb"></span><span class="bulb"></span>
+                    </div>
+                </div>
+                <div class="slot-window">
+                    <div class="slot-reel-text topic-size" id="selectedTopic">READY TO SPIN</div>
+                </div>
+                <button class="slot-btn" id="btnSpinTopic" onclick="spinTopicJackpot()">🎰 SPIN TOPIC</button>
+            </div>
+        </div>
+
+        <!-- ELEGANT HOURGLASS TIMER (6 MINUTES PER STUDENT) -->
+        <div class="hourglass-panel" id="hourglassContainer">
+            <div class="hourglass-visual">
+                <div class="hg-cap"></div>
+                <div class="hg-glass">
+                    <div class="hg-top-bulb">
+                        <div class="sand-top" id="sandTop"></div>
+                    </div>
+                    <div class="sand-stream"></div>
+                    <div class="hg-bottom-bulb">
+                        <div class="sand-bottom" id="sandBottom"></div>
+                    </div>
+                </div>
+                <div class="hg-cap"></div>
+            </div>
+
+            <div class="timer-info">
+                <h3 style="margin: 0; color: #f8fafc;">⏳ Speaking Session Timer (6 Minutes / Student)</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin: 4px 0;">
+                    3 Mins Speech • 2 Mins Class Q&A • 1 Min Coach Feedback
+                </p>
+                <div class="timer-display" id="speakingTimerDisplay">06:00</div>
+                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                    <button class="action-btn" onclick="startSpeakingTimer()">▶ Start Timer</button>
+                    <button class="action-btn" style="background: #475569;" onclick="pauseSpeakingTimer()">⏸ Pause</button>
+                    <button class="action-btn" style="background: #334155;" onclick="resetSpeakingTimer()">↺ Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= STAGE 3: PAIR ROLEPLAY ================= -->
+    <div id="stage3" class="stage-container">
+        <h2>Stage 3: Pair Roleplay Challenge</h2>
+        <p style="color: var(--text-muted);">Click the button below to shuffle all students into pairs at once, lock their scenarios, and start the 5-minute preparation countdown.</p>
+        <hr style="border-color: #334155; margin-bottom: 20px;">
+
+        <div style="text-align: center; margin-bottom: 15px;">
+            <button id="btnShufflePairs" class="action-btn" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: #000; font-size: 1.1rem; padding: 14px 28px;" onclick="shuffleAllRoleplays()">
+                🔀 Shuffle & Lock All Pairs (5s Animation)
+            </button>
+        </div>
+
+        <div id="shuffleStatus" style="text-align: center; color: var(--gold); font-weight: bold; min-height: 24px;"></div>
+
+        <!-- ALL PAIRS RENDERED HERE -->
+        <div class="pairs-grid" id="pairsContainer">
+            <div class="pair-card" style="text-align: center; grid-column: 1 / -1; padding: 30px;">
+                <h3 style="color: #60a5fa; margin-top: 0;">Press the button above to pair up the whole class</h3>
+                <p style="color: var(--text-muted); margin-bottom: 0;">All students from the Stage 2 attendance list will be paired automatically and locked with a roleplay scenario.</p>
+            </div>
+        </div>
+
+        <!-- 5-MINUTE PREPARATION ANALOG CLOCK TIMER -->
+        <div class="prep-timer-box">
+            <div class="analog-clock">
+                <div class="clock-5min-sector"></div>
+                <div class="clock-face-markers" id="clockMarkers"></div>
+                <div class="clock-hand minute-hand" id="analogMinuteHand" style="transform: rotate(30deg);"></div>
+                <div class="clock-hand second-hand" id="analogSecondHand" style="transform: rotate(0deg);"></div>
+                <div class="clock-center-dot"></div>
+                <div class="clock-label">5 MIN</div>
+            </div>
+
+            <div style="text-align: center;">
+                <h3 style="margin: 0; color: #60a5fa;">🕰️ Pair Discussion & Preparation Timer (5 Minutes)</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin: 5px 0;">Discuss with your partner and prepare your dialogue before performing!</p>
+                <div class="timer-display" id="prepTimerDisplay" style="font-size: 3.1rem;">05:00</div>
+                <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                    <button class="action-btn" onclick="startPrepTimer()">▶ Start 5-Min Prep</button>
+                    <button class="action-btn" style="background: #475569;" onclick="pausePrepTimer()">⏸ Pause</button>
+                    <button class="action-btn" style="background: #334155;" onclick="resetPrepTimer()">↺ Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ================= SHUFFLE SOUND EFFECTS (WEB AUDIO API) ================= */
+        let audioCtx = null;
+        function ensureAudioCtx() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playTickSound(freq = 520) {
+            try {
+                ensureAudioCtx();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.06);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.06);
+            } catch (e) {}
+        }
+
+        function playLockChime() {
+            try {
+                ensureAudioCtx();
+                const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+                notes.forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, audioCtx.currentTime + idx * 0.07);
+                    gain.gain.setValueAtTime(0.12, audioCtx.currentTime + idx * 0.07);
+                    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + idx * 0.07 + 0.35);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(audioCtx.currentTime + idx * 0.07);
+                    osc.stop(audioCtx.currentTime + idx * 0.07 + 0.35);
+                });
+            } catch (e) {}
+        }
+
+        /* ================= NAVIGATION ================= */
+        function switchStage(stageNum, btnEl) {
+            document.querySelectorAll('.stage-container').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById('stage' + stageNum).classList.add('active');
+            btnEl.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* ================= AUDIO 1 & 2 (GITHUB + DRIVE FALLBACK) ================= */
+        function toggleAudio(num) {
+            const audio = document.getElementById('playerAudio' + num);
+            const btn = document.getElementById('btnAudio' + num);
+            const status = document.getElementById('statusAudio' + num);
+
+            const otherNum = num === 1 ? 2 : 1;
+            const otherAudio = document.getElementById('playerAudio' + otherNum);
+            if (!otherAudio.paused) {
+                otherAudio.pause();
+                resetAudioBtn(otherNum);
+            }
+
+            if (audio.paused) {
+                audio.play().then(() => {
+                    btn.innerHTML = `⏸ Pause Audio ${num}`;
+                    btn.classList.add('playing');
+                    status.innerText = "Playing audio...";
+                }).catch(() => {
+                    status.innerText = "Opening Google Drive audio in new tab...";
+                    const driveUrl = num === 1 
+                        ? "https://drive.google.com/file/d/1UXiBxZDktsurq0WX83DycWCMCCFg7bRp/view?usp=sharing"
+                        : "https://drive.google.com/file/d/1le2rMNs0h_krexY2cE5BvXB2cIDrsyP3/view?usp=sharing";
+                    window.open(driveUrl, '_blank');
+                });
+            } else {
+                audio.pause();
+                btn.innerHTML = `▶ Play Audio ${num}`;
+                btn.classList.remove('playing');
+                status.innerText = "Paused";
+            }
+        }
+
+        function resetAudioBtn(num) {
+            const btn = document.getElementById('btnAudio' + num);
+            const status = document.getElementById('statusAudio' + num);
+            btn.innerHTML = `▶ Play Audio ${num}`;
+            btn.classList.remove('playing');
+            status.innerText = "Ready to play";
+        }
+
+        /* ================= STAGE 1: WRITING PAPER & PEN ANIMATION (10 MINS) ================= */
+        const TOTAL_WRITING_SEC = 600;
+        let writingInterval = null;
+        let writingTimeLeft = TOTAL_WRITING_SEC;
+
+        function updateWritingVisual() {
+            const progress = (TOTAL_WRITING_SEC - writingTimeLeft) / TOTAL_WRITING_SEC; // 0 to 1
+            const totalLines = 6;
+            const exactLine = progress * totalLines;
+            const currentLineIdx = Math.min(Math.floor(exactLine), totalLines - 1);
+            const currentLinePct = (exactLine - currentLineIdx) * 100;
+
+            for (let i = 0; i < totalLines; i++) {
+                const lineEl = document.getElementById('inkLine' + (i + 1));
+                if (i < currentLineIdx) {
+                    lineEl.style.width = '100%';
+                } else if (i === currentLineIdx) {
+                    lineEl.style.width = `${Math.min(100, currentLinePct)}%`;
+                } else {
+                    lineEl.style.width = '0%';
+                }
+            }
+
+            // Move pen emoji along the active line
+            const pen = document.getElementById('writingPen');
+            const topPos = 8 + (currentLineIdx * 17);
+            const leftPos = 14 + (Math.min(100, currentLinePct) * 0.85);
+            pen.style.top = `${topPos}px`;
+            pen.style.left = `${leftPos}px`;
+
+            updateTimerText('timerDisplay', writingTimeLeft);
+        }
+
+        function startWritingTimer() {
+            if (writingInterval) return;
+            document.getElementById('writingVisualBox').classList.add('writing-active');
+            writingInterval = setInterval(() => {
+                if (writingTimeLeft <= 0) {
+                    clearInterval(writingInterval);
+                    writingInterval = null;
+                    document.getElementById('writingVisualBox').classList.remove('writing-active');
+                    document.getElementById('timerDisplay').innerText = "TIME'S UP!";
+                    playLockChime();
+                } else {
+                    writingTimeLeft--;
+                    updateWritingVisual();
+                }
+            }, 1000);
+        }
+
+        function pauseWritingTimer() {
+            clearInterval(writingInterval);
+            writingInterval = null;
+            document.getElementById('writingVisualBox').classList.remove('writing-active');
+        }
+
+        function resetWritingTimer() {
+            pauseWritingTimer();
+            writingTimeLeft = TOTAL_WRITING_SEC;
+            updateWritingVisual();
+        }
+
+        function updateTimerText(elementId, seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = seconds % 60;
+            document.getElementById(elementId).innerText = 
+                `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        /* ================= STAGE 2: JACKPOT SPIN & NO-REPEAT POOL ================= */
+        const allTopics = [
+            "Topic 1 (Unit 1): Introduce yourself and share 1 fun fact about your job or personality.",
+            "Topic 2 (Unit 2): Describe your favorite weekend activity and how often you do it.",
+            "Topic 3 (Unit 3): Describe your favorite colleague or close friend (looks & personality).",
+            "Topic 4 (Unit 4): WFH vs WFO: Which one do you prefer and why?",
+            "Topic 5 (Unit 5/10): Give a 1-minute pitch about your favorite gadget (Opening-Body-Closing).",
+            "Topic 6 (Unit 6): Describe your favorite local food and how it tastes.",
+            "Topic 7 (Unit 7): Describe your hometown or current city. What makes it special?",
+            "Topic 8 (Unit 8): Give simple directions from your home/office to a nearby restaurant.",
+            "Topic 9 (Unit 9): Tell us about your best or worst vacation experience.",
+            "Topic 10 (Unit 10): Talk about a memorable holiday using Punch-Body-Closing.",
+            "Topic 11 (Unit 11): Share 1 unhealthy habit you have and how to fix it."
+        ];
+
+        let usedStudents = new Set();
+        let usedTopics = new Set();
+
+        function getFullStudentList() {
+            const raw = document.getElementById('studentNames').value;
+            return raw.split(',').map(s => s.trim()).filter(s => s.length > 0);
+        }
+
+        function syncStudents() {
+            const all = getFullStudentList();
+            const pillsContainer = document.getElementById('studentPills');
+            pillsContainer.innerHTML = '';
+
+            let remaining = 0;
+            all.forEach(name => {
+                const isDone = usedStudents.has(name);
+                if (!isDone) remaining++;
+                const span = document.createElement('span');
+                span.className = 'pill' + (isDone ? ' done' : '');
+                span.innerText = isDone ? `✓ ${name}` : name;
+                pillsContainer.appendChild(span);
+            });
+
+            document.getElementById('remainingCount').innerText = `${remaining} / ${all.length}`;
+        }
+
+        function resetPool() {
+            usedStudents.clear();
+            usedTopics.clear();
+            document.getElementById('selectedStudent').innerText = "READY TO SPIN";
+            document.getElementById('selectedTopic').innerText = "READY TO SPIN";
+            document.getElementById('studentSlotBox').classList.remove('slot-winner');
+            document.getElementById('topicSlotBox').classList.remove('slot-winner');
+            syncStudents();
+        }
+
+        function spinStudentJackpot() {
+            const all = getFullStudentList();
+            const available = all.filter(name => !usedStudents.has(name));
+
+            if (available.length === 0) {
+                alert("All students have completed their turns! Click 'Reset All Turns & Topics' to start over.");
+                return;
+            }
+
+            const btn = document.getElementById('btnSpinStudent');
+            const box = document.getElementById('studentSlotBox');
+            const display = document.getElementById('selectedStudent');
+
+            btn.disabled = true;
+            box.classList.remove('slot-winner');
+            box.classList.add('slot-spinning');
+
+            let ticks = 0;
+            const totalTicks = 25;
+            const interval = setInterval(() => {
+                const randomPreview = available[Math.floor(Math.random() * available.length)];
+                display.innerText = randomPreview;
+                playTickSound(440 + (ticks * 12));
+                ticks++;
+
+                if (ticks >= totalTicks) {
+                    clearInterval(interval);
+                    const chosen = available[Math.floor(Math.random() * available.length)];
+                    display.innerText = `★ ${chosen} ★`;
+                    usedStudents.add(chosen);
+                    syncStudents();
+
+                    box.classList.remove('slot-spinning');
+                    box.classList.add('slot-winner');
+                    playLockChime();
+                    btn.disabled = false;
+                }
+            }, 90);
+        }
+
+        function spinTopicJackpot() {
+            let availableTopics = allTopics.filter((_, idx) => !usedTopics.has(idx));
+            if (availableTopics.length === 0) {
+                usedTopics.clear();
+                availableTopics = [...allTopics];
+            }
+
+            const btn = document.getElementById('btnSpinTopic');
+            const box = document.getElementById('topicSlotBox');
+            const display = document.getElementById('selectedTopic');
+
+            btn.disabled = true;
+            box.classList.remove('slot-winner');
+            box.classList.add('slot-spinning');
+
+            let ticks = 0;
+            const totalTicks = 25;
+            const interval = setInterval(() => {
+                const preview = availableTopics[Math.floor(Math.random() * availableTopics.length)];
+                display.innerText = preview;
+                playTickSound(500 + (ticks * 14));
+                ticks++;
+
+                if (ticks >= totalTicks) {
+                    clearInterval(interval);
+                    const chosenText = availableTopics[Math.floor(Math.random() * availableTopics.length)];
+                    const originalIdx = allTopics.indexOf(chosenText);
+                    usedTopics.add(originalIdx);
+
+                    display.innerText = chosenText;
+                    box.classList.remove('slot-spinning');
+                    box.classList.add('slot-winner');
+                    playLockChime();
+                    btn.disabled = false;
+                }
+            }, 90);
+        }
+
+        /* ================= STAGE 2: HOURGLASS 6-MIN TIMER ================= */
+        const TOTAL_SPEAKING_SEC = 360;
+        let speakingTimeLeft = TOTAL_SPEAKING_SEC;
+        let speakingInterval = null;
+
+        function updateHourglassVisual() {
+            const ratio = speakingTimeLeft / TOTAL_SPEAKING_SEC;
+            document.getElementById('sandTop').style.height = `${ratio * 100}%`;
+            document.getElementById('sandBottom').style.height = `${(1 - ratio) * 100}%`;
+            updateTimerText('speakingTimerDisplay', speakingTimeLeft);
+        }
+
+        function startSpeakingTimer() {
+            if (speakingInterval) return;
+            document.getElementById('hourglassContainer').classList.add('hourglass-running');
+            speakingInterval = setInterval(() => {
+                if (speakingTimeLeft <= 0) {
+                    clearInterval(speakingInterval);
+                    speakingInterval = null;
+                    document.getElementById('hourglassContainer').classList.remove('hourglass-running');
+                    document.getElementById('speakingTimerDisplay').innerText = "00:00";
+                    playLockChime();
+                } else {
+                    speakingTimeLeft--;
+                    updateHourglassVisual();
+                }
+            }, 1000);
+        }
+
+        function pauseSpeakingTimer() {
+            clearInterval(speakingInterval);
+            speakingInterval = null;
+            document.getElementById('hourglassContainer').classList.remove('hourglass-running');
+        }
+
+        function resetSpeakingTimer() {
+            pauseSpeakingTimer();
+            speakingTimeLeft = TOTAL_SPEAKING_SEC;
+            updateHourglassVisual();
+        }
+
+        /* ================= STAGE 3: ALL-AT-ONCE PAIR SHUFFLE (5 SEC) & LOCK ================= */
+        const roleplayScenarios = [
+            {
+                title: "Scenario A: Food & Directions (Units 6, 7, 8)",
+                desc: "<strong>Student A:</strong> You are a visitor looking for a great local restaurant.<br><strong>Student B:</strong> Recommend a delicious local dish and give clear directions."
+            },
+            {
+                title: "Scenario B: Healthy Habits & Advice (Units 4, 11)",
+                desc: "<strong>Student A:</strong> You feel very tired and stressed from working too much.<br><strong>Student B:</strong> Give 2 healthy lifestyle tips using <em>'It's a good idea to...'</em>."
+            },
+            {
+                title: "Scenario C: Vacation & Hobbies (Units 2, 9)",
+                desc: "<strong>Student A:</strong> Ask your partner about their last vacation and weekend hobbies.<br><strong>Student B:</strong> Answer using past tense and frequency words (always, usually, sometimes)."
+            },
+            {
+                title: "Scenario D: Meeting a New Colleague (Units 1, 3)",
+                desc: "<strong>Student A:</strong> Introduce yourself and ask about a team member's appearance and personality.<br><strong>Student B:</strong> Describe your colleague clearly."
+            },
+            {
+                title: "Scenario E: Ordering Food & Opinions (Units 4, 6)",
+                desc: "<strong>Student A:</strong> Suggest trying a spicy traditional dish.<br><strong>Student B:</strong> Politely agree or disagree and explain your favorite taste."
+            }
+        ];
+
+        function shuffleArray(arr) {
+            const copy = [...arr];
+            for (let i = copy.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [copy[i], copy[j]] = [copy[j], copy[i]];
+            }
+            return copy;
+        }
+
+        function buildPairsHTML(studentList, isLocked) {
+            const shuffled = shuffleArray(studentList);
+            const pairs = [];
+
+            for (let i = 0; i < shuffled.length; i += 2) {
+                if (i + 3 === shuffled.length) {
+                    pairs.push([shuffled[i], shuffled[i + 1], shuffled[i + 2]]);
+                    break;
+                } else if (i + 1 < shuffled.length) {
+                    pairs.push([shuffled[i], shuffled[i + 1]]);
+                } else {
+                    pairs.push([shuffled[i]]);
+                }
+            }
+
+            return pairs.map((group, idx) => {
+                const scenario = roleplayScenarios[idx % roleplayScenarios.length];
+                const namesFormatted = group.join('  &  ');
+                const cardClass = isLocked ? 'pair-card locked' : 'pair-card shuffling';
+                const badge = isLocked 
+                    ? `<span class="lock-badge">🔒 LOCKED</span>` 
+                    : `<span class="lock-badge" style="color:#fbbf24; border-color:#f59e0b;">🎲 SHUFFLING...</span>`;
+
+                return `
+                    <div class="${cardClass}">
+                        ${badge}
+                        <div style="font-size: 0.85rem; color: #94a3b8; font-weight: bold;">PAIR ${idx + 1}</div>
+                        <div class="pair-names">🎭 ${namesFormatted}</div>
+                        <div class="pair-scenario">
+                            <div style="color: var(--gold); font-weight: bold; margin-bottom: 4px;">${scenario.title}</div>
+                            ${scenario.desc}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function shuffleAllRoleplays() {
+            const students = getFullStudentList();
+            if (students.length < 2) {
+                alert("Please enter at least 2 student names in Stage 2 first!");
+                return;
+            }
+
+            const btn = document.getElementById('btnShufflePairs');
+            const container = document.getElementById('pairsContainer');
+            const status = document.getElementById('shuffleStatus');
+
+            btn.disabled = true;
+            let elapsed = 0;
+            const duration = 5000;
+            const step = 120;
+
+            const animInterval = setInterval(() => {
+                elapsed += step;
+                const remainingSec = Math.ceil((duration - elapsed) / 1000);
+                status.innerText = `🎲 Randomizing all pairs & scenarios... Locking in ${remainingSec}s`;
+                container.innerHTML = buildPairsHTML(students, false);
+                playTickSound(380 + (elapsed / 25));
+
+                if (elapsed >= duration) {
+                    clearInterval(animInterval);
+                    container.innerHTML = buildPairsHTML(students, true);
+                    status.innerText = "✅ All pairs and scenarios are LOCKED! Students may now discuss for 5 minutes.";
+                    playLockChime();
+                    btn.disabled = false;
+                }
+            }, step);
+        }
+
+        /* ================= STAGE 3: ANALOG CLOCK 5-MINUTE TIMER ================= */
+        const TOTAL_PREP_SEC = 300;
+        let prepInterval = null;
+        let prepTimeLeft = TOTAL_PREP_SEC;
+
+        function initAnalogClockMarkers() {
+            const container = document.getElementById('clockMarkers');
+            for (let i = 0; i < 12; i++) {
+                const mark = document.createElement('div');
+                mark.className = 'clock-mark' + (i % 3 === 0 ? ' major' : '');
+                mark.style.transform = `translateX(-50%) rotate(${i * 30}deg)`;
+                container.appendChild(mark);
+            }
+        }
+
+        function updateAnalogClockVisual() {
+            // 5 minutes = 30 degrees on standard clock face (6 deg per minute)
+            const minuteDeg = (prepTimeLeft / 60) * 6;
+            const secondDeg = (prepTimeLeft % 60) * 6;
+            document.getElementById('analogMinuteHand').style.transform = `rotate(${minuteDeg}deg)`;
+            document.getElementById('analogSecondHand').style.transform = `rotate(${secondDeg}deg)`;
+            updateTimerText('prepTimerDisplay', prepTimeLeft);
+        }
+
+        function startPrepTimer() {
+            if (prepInterval) return;
+            prepInterval = setInterval(() => {
+                if (prepTimeLeft <= 0) {
+                    clearInterval(prepInterval);
+                    prepInterval = null;
+                    document.getElementById('prepTimerDisplay').innerText = "TIME'S UP!";
+                    playLockChime();
+                } else {
+                    prepTimeLeft--;
+                    updateAnalogClockVisual();
+                }
+            }, 1000);
+        }
+
+        function pausePrepTimer() {
+            clearInterval(prepInterval);
+            prepInterval = null;
+        }
+
+        function resetPrepTimer() {
+            pausePrepTimer();
+            prepTimeLeft = TOTAL_PREP_SEC;
+            updateAnalogClockVisual();
+        }
+
+        // Initialize UI elements on load
+        syncStudents();
+        initAnalogClockMarkers();
+        updateAnalogClockVisual();
+    </script>
+</body>
+</html>
